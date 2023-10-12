@@ -12,5 +12,5 @@
 /*
     Built in productivity objects:
     1. daily routines (morning and evening): a special type of habit project that is done on a daily basis
-    2. personal profile: a place to reflect on everything, share your progress
+    2. personal profile: a place to reflect on your life and share your progress with the world
 */

@@ -37,7 +37,6 @@ class Profile {
     this.lifetimeHours = 0;
     this.prestigeXP = 0;
   }
-
   // getters and setters
   getLevel() {
     return this.level;
