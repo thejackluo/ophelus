@@ -12,37 +12,32 @@
         Minimum duration: 2 weeks
         Minimum time per frequency: 15 minutes
     Analytics for HABIT
-        Percentage completion, based on the milestone, there 
+        Percentage completion, total time commitment on the habit
 */
 
 class Habit {
-  // constructor
-  constructor(name, description, frequency, timeCommitment) {
+  // SET UP constructor
+  constructor(name, description, frequency, timeCommitment, duration) {
+    // name attributes
     this.name = name;
     this.description = description;
-    this.frequency = frequency;
-    this.timeCommitment = timeCommitment;
-    this.completed = false;
+
+    // frequency attributes
+    this.frequency = frequency; // this will be defined by the number of days per habit (14 days for 2 weeks for example)
+    this.timeCommitment = timeCommitment; // this will be defined by the number of minutes per habit (15 minutes for example)
+    this.duration = duration; // this will be defined by the number of weeks (2 weeks for example)
   }
 
-  // getters and setters
-  getName() {
-    return this.name;
+  // this is a function that automatically set up the indirect variables for this habit such as the percentage completion and total time commitment
+  autoPopulate() {
+    this.completed = 0; // a value between 0 and 100
+    this.totalTimeCommitment =
+      (this.duration / this.frequency) * this.timeCommitment; // a value in minutes
+    this.tasks = []; // an array of tasks per completion of the habit
   }
 
-  getDescription() {
-    return this.description;
-  }
-
-  getFrequency() {
-    return this.frequency;
-  }
-
-  getTimeCommitment() {
-    return this.timeCommitment;
-  }
-
-  getCompleted() {
-    return this.completed;
+  // FUNCTION specific variable
+  addTask(task) {
+    this.tasks.push(task);
   }
 }
