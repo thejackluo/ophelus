@@ -3,7 +3,7 @@
 1. level: the level of the user from 1 - 100 something that is exponentially harder (100 levels is 250 hours of effort)
 2. xp: the amount of experience a user accumlates over the course of the project, the maximum amount of xp is 1000000 divided exponentially by 100 levels (4000 xp per hour on average)\ 
 the factors of xp is determined by a few things
-    a. number of hours worked (1000xp) (one hour has a flat rate of 1000 xp)
+    a. number of hours worked (1000xp) (one hour has a flat rate of 1000 xp) (this will be reduced by 25% if you quit early with your goals)
     b. consistency (2000xp): bonus xp for keeping up streaks (100 xp per day, with a maximum streak of 20 days)
     c. deep quality work (this is a holistic measure of the quality of the work 1500xp) based on a few factors
         i. wellbeing: completion of daily routines 0.25
@@ -23,5 +23,47 @@ the factors of xp is determined by a few things
 */
 const MIN_LEVEL = 1;
 const MAX_LEVEL = 100;
+const MIN_XP = 0;
+const MAX_XP = 1000000;
 
-class Level {}
+class Profile {
+  constructor() {
+    // basic profile  attributes
+    this.level = MIN_LEVEL;
+    this.xp = MIN_XP;
+    this.coins = 0;
+
+    // productivity stats attributes
+    this.lifetimeHours = 0;
+  }
+
+  // getters and setters
+  getLevel() {
+    return this.level;
+  }
+  getXp() {
+    return this.xp;
+  }
+  getCoins() {
+    return this.coins;
+  }
+
+  // work session methods
+  workSession(goal, hour) {
+    switch (hour) {
+      case hour < 0:
+        throw new Error("Invalid hour input");
+      case hour === 0:
+        return;
+      case hour < goal:
+        this.xp += 750 * hour;
+        this.coins += 100;
+        break;
+      case hour >= goal:
+        this.xp += 1000 * hour;
+        this.coins += 100;
+        break;
+    }
+    this.lifetimeHours += hour;
+  }
+}
