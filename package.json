@@ -1,0 +1,23 @@
+{
+  "name": "ophelus",
+  "version": "1.0.0",
+  "description": "a gamification productivity software that allows the user to track their progress ",
+  "main": "productivity.js",
+  "dependencies": {
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thejackluo/ophelus.git"
+  },
+  "author": "Jack Luo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thejackluo/ophelus/issues"
+  },
+  "homepage": "https://github.com/thejackluo/ophelus#readme"
+}
