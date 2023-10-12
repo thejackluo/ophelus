@@ -35,6 +35,7 @@ class Profile {
 
     // productivity stats attributes
     this.lifetimeHours = 0;
+    this.prestigeXP = 0;
   }
 
   // getters and setters
@@ -59,11 +60,28 @@ class Profile {
         this.xp += 750 * hour;
         this.coins += 100;
         break;
-      case hour >= goal:
+      default:
         this.xp += 1000 * hour;
         this.coins += 100;
         break;
     }
     this.lifetimeHours += hour;
+  }
+
+  // level up methods
+  levelUp() {
+    if (this.level === MAX_LEVEL) {
+      throw new Error("Max level reached");
+    }
+    this.level += 1;
+  }
+
+  // xp methods
+  addXp(xp) {
+    this.xp += xp;
+    if (this.xp + xp > MAX_XP) {
+      this.prestigeXP += this.xp + xp - MAX_XP;
+      this.xp = MAX_XP;
+    }
   }
 }
