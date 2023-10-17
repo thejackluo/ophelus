@@ -7,7 +7,7 @@ A powerful AI-based gamification productivity app that uses result oriented trac
 ## Frontend
 
 Framework: next.js Extended frontend (5%)
-UI Framework: tailwind.css (5%) Gimli
+UI Framework: tailwind.css (30%) Gimli
 UI Library: ShdeCN
 
 ## Backend
@@ -21,15 +21,18 @@ Database: TBC?? Mongo or Postgres
 Hosting: Vercel
 
 ## App Specific
+
 Payment: Stripe
 AI: OpenAI
 
 # Tools for designing this software
+
 Writing: jasper.ai
 UI Design: Diagram
 Coding: Copilot
 Documentation: Mintlify
 Unit Testing:
+Error Management: Sentry
 
 # Ophelus Productivity Model
 
