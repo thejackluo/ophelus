@@ -29,6 +29,9 @@ class Task {
     this.duration = duration || 15; // this will be defined by the number of minutes per task (15 minutes for example)
     this.difficulty = difficulty || 3; // this will be defined 1 - 5 (1 being the easiest and 5 being the hardest)
     this.priority = priority || 3; // this will be defined 1 - 5 (1 being the lowest and 5 being the highest)
+
+    // parent attributes
+    this.parentHabit = null;
   }
 
   // this is a function that automatically set up the indirect variables for this task such as the percentage completion and total time commitment
