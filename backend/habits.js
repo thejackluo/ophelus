@@ -38,6 +38,7 @@ class Habit {
 
   // FUNCTION specific variable
   addTask(task) {
+    // TODO: first valid that the task is a valid task
     this.tasks.push(task);
   }
 }
