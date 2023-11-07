@@ -1,3 +1,4 @@
+import { Young_Serif } from "next/font/google";
 import Image from "next/image";
 
 export default function Home() {
@@ -10,3 +11,5 @@ export default function Home() {
     </main>
   );
 }
+
+
