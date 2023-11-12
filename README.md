@@ -4,23 +4,23 @@ A powerful AI-based gamification productivity app that uses result oriented trac
 # Frameworks used
 
 ## Frontend Structure
-Framework: next.js Extended frontend (10%)
-UI Framework: tailwind.css (30%)
-UI Library: ShdeCN (0%)
-UI Tool: Gimli (0%)
+Framework: next.js Extended frontend (10%)  
+UI Framework: tailwind.css (30%)  
+UI Library: ShdeCN (0%)  
+UI Tool: Gimli (0%)  
 
 ## Backend
 Framework: BaSS (TBD)
-File Hosting: AWS S3 
-ORM Database: Prsima
-Authentication: Next-Auth (Integrated with Next.js)
-API Layer: TPRC (Express variant)
-Database: PostgresSQL
-Hosting: Vercel
+File Hosting: AWS S3 (5%)  
+ORM Database: Prsima (0%)  
+Authentication: Next-Auth (Integrated with Next.js) (0%)  
+API Layer: TPRC (Express variant) (0%)  
+Database: PostgresSQL (20%)  
+Hosting: Vercel (5%)  
 
 ## App Specific (Update in the future
-Payment: Stripe
-AI: OpenAI
+Payment: Stripe (0%)  
+AI: OpenAI (10%)  
 
 # DevOp Tools
 Writing: jasper.ai
