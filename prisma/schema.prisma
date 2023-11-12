@@ -44,6 +44,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // create a one to one relationship between user and world model using userid and worldid as connectors
+  world World?
 }
 
 model World {
@@ -51,4 +52,7 @@ model World {
   name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // one to one relationship between world and user model using userid and worldid as connectors
+  ownedUser User? @relation(fields: [ownedUserid], references: [userid])
+  ownedUserid String? @unique
 }
