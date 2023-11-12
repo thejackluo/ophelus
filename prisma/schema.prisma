@@ -94,14 +94,17 @@ model Tile {
 
 enum ResourceType {
   WOOD
-  STONE
-  FOOD
-  WATER
+  GOLD
+  EMPTY
+  MOUNTAIN
 }
 
 enum BuildingType {
-  HOUSE
-  FARM
-  MINE
-  LUMBERYARD
+  BASE
+  GOLDMINE
+  TREEMINE
+  GOLDSTORAGE
+  TREESTORAGE
+  WALL
+  DOOR
 }
