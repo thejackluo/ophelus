@@ -11,4 +11,44 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model 
+// - Gamification
+//     - World Schema (world data)
+//         - Location
+//         - Chucks
+//             - Tile
+//                 - ID for unique tiles
+//                 - Resource tile schema
+//                 - Building tile schema
+//     - Zombie
+//         - Location
+//         - Stats
+//             - Attack
+//             - Health
+//             - Movement Speed
+//     - Game Profile
+//         - Player Stats
+//         - Settings
+// - Productivity
+//     - Tasks
+//     - Habits
+//     - Work Sessions
+// - Social
+//     - Leaderboard
+//     - Social Profile
+
+model User {
+  userid String @default(uuid()) @id
+  firstName String
+  lastName String
+  username String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // create a one to one relationship between user and world model using userid and worldid as connectors
+}
+
+model World {
+  worldid String @default(uuid()) @id
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
