@@ -48,6 +48,7 @@ model User {
 }
 
 model World {
+  // default world attributes
   worldid String @default(uuid()) @id
   name String
   createdAt DateTime @default(now())
@@ -55,4 +56,52 @@ model World {
   // one to one relationship between world and user model using userid and worldid as connectors
   ownedUser User? @relation(fields: [ownedUserid], references: [userid])
   ownedUserid String? @unique
+
+  // one to many relationship between world and chuck model using worldid as connector
+  chucks Chuck[]
+}
+
+model Chuck {
+  // default chuck attributes
+  chuckid String @default(uuid()) @id
+  name String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Chuck specific attributes
+  chuckX Int
+  chuckY Int
+  // one to many relationship between chuck and tile model using chuckid as connector
+  tiles Tile[]
+  // one to many relationship between chuck and world model using worldid as connector
+  world World @relation(fields: [worldid], references: [worldid])
+  worldid String
+}
+
+model Tile {
+  // default tile attributes
+  tileid String @default(uuid()) @id
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // one to many relationship between tile and chuck model using chuckid as connector
+  chuck Chuck @relation(fields: [chuckid], references: [chuckid])
+  chuckid String
+  // // one to many relationship between tile and resourceTile model using tileid as connector
+  // resourceTile ResourceTile[]
+  // // one to many relationship between tile and buildingTile model using tileid as connector
+  // buildingTile BuildingTile[]
+}
+
+enum ResourceType {
+  WOOD
+  STONE
+  FOOD
+  WATER
+}
+
+enum BuildingType {
+  HOUSE
+  FARM
+  MINE
+  LUMBERYARD
 }
