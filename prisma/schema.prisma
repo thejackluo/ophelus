@@ -190,6 +190,9 @@ model Habit {
   frequency_time Int // how much time you will spend per iteration of the habit
   // how to track when habits are completed and when they are not, like a log???
 
+  // analytics (WIP)
+  // habitlog HabitLog?
+
   // relationships
   user User @relation(fields: [userid], references: [userid])
   userid String
@@ -200,16 +203,37 @@ model WorkSession {
   worksessionid String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // productivity object attributes
+  name String
+  description String?
+  start_date DateTime? // when did you start this work session
+  completed_date DateTime? // when was the work session completed
+
+  // work session attributes
+  session_duration Int // how long the work session was in minutes
+  session_type String // what type of work session was it
+
+  // relationships
+  user User @relation(fields: [userid], references: [userid])
+  userid String  
 }
 
-// Analytics Objects
+// (WIP) Analytics Objects
 model HabitLog {
   // default habit log attributes
   habitlogid String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // relationships
+  // habit Habit? @relation(fields: [habitid], references: [habitid])
+  // habitid String
+
+  // habit log attributes
 }
+
+// (WIP) Gamification Link to Productivity Objects
 
 // =======================
 // Social
