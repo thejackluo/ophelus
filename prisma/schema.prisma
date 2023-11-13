@@ -261,10 +261,14 @@ model User {
   updatedAt DateTime @updatedAt
   
   // relationships
-  social UserSocial
-  productivity UserProductivity
-  game UserGame
-  setting UserSetting
+  social UserSocial @relation(fields: [usersocialid], references: [usersocialid], map: "UserSocial_User")
+  productivity UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid], map: "UserProductivity_User")
+  game UserGame @relation(fields: [usergameid], references: [usergameid], map: "UserGame_User")
+  setting UserSetting @relation(fields: [usersettingid], references: [usersettingid], map: "UserSetting_User")
+  usersocialid String @unique
+  userproductivityid String @unique
+  usergameid String @unique
+  usersettingid String @unique
 
   // user attributes
   email String @unique
@@ -294,7 +298,7 @@ model UserSocial {
   github String?
 
   // relationships
-  user User @relation(fields: [userid], references: [userid])
+  user User?
   userid String
 }
 
@@ -306,7 +310,7 @@ model UserGame {
 
   // relationships
   world World[]
-  user User @relation(fields: [userid], references: [userid])
+  user User?
   userid String
 }
 
@@ -322,7 +326,7 @@ model UserProductivity {
   workSessions WorkSession[]
 
   // relationships
-  user User @relation(fields: [userid], references: [userid])
+  user User?
   userid String
 }
 
@@ -331,6 +335,10 @@ model UserSetting {
   usersettingid String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // relationships
+  user User?
+  userid String
   // settings
   // theme
   // notifications
