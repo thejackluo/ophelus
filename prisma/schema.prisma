@@ -22,18 +22,6 @@ datasource db {
 //                 - Resource tile (Sc)
 //                 - Building tile (Sc)
 //     - Zombie (Sc)
-// - Productivity (Cat)
-//     - Tasks (Sc)
-//     - Habits (Sc)
-//     - Work Sessions (Sc)
-// - Social (Cat)
-//     - Leaderboard (Sc)
-//     - User Profile (Sc)
-//          - Social Profile (Sc)
-//              - Description (At)
-//          - Game Profile (Sc)
-//              - Player Stats (At)
-//          - Settings (Sc)
 
 // =======================
 // Gamification
@@ -56,7 +44,7 @@ model World {
 
 model Chuck {
   // default chuck attributes
-  chuckid Int @default(autoincrement()) @id  
+  chuckid String @default(uuid()) @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // Chuck specific attributes
@@ -76,7 +64,7 @@ model Chuck {
 // Tile Definition
 model Tile {
   // default tile attributes
-  chuckid Int
+  chuckid String
   @@id([tileX, tileY, chuckid])
   // tile specific attributes
   tileX Int
@@ -84,7 +72,7 @@ model Tile {
   // relationships
   chuck Chuck @relation(fields: [chuckid], references: [chuckid])
 
-  resourceTile ResourceTile
+  resourceTile ResourceTile?
   buildingTile BuildingTile?
   
 }
@@ -93,7 +81,7 @@ model ResourceTile {
   // default resource tile attributes
   tileX Int
   tileY Int
-  chuckid Int
+  chuckid String
   @@id([tileX, tileY, chuckid])
   // resource tile specific attributes
   resourceType ResourceType
@@ -105,19 +93,18 @@ model BuildingTile {
   // default building tile attributes
   tileX Int
   tileY Int
-  chuckid Int
+  chuckid String
   @@id([tileX, tileY, chuckid])
   // building tile specific attributes
   buildingType BuildingType
   // relationships
   tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
-
 }
 
 enum ResourceType {
+  EMPTY
   WOOD
   GOLD
-  EMPTY
   MOUNTAIN
 }
 
@@ -135,9 +122,26 @@ enum BuildingType {
 // Productivity
 // =======================
 
+// - Productivity (Cat)
+//     - Tasks (Sc)
+//     - Habits (Sc)
+//     - Work Sessions (Sc)
+
+// Task Definition
+
 // =======================
 // Social
 // =======================
+
+// - Social (Cat)
+//     - Leaderboard (Sc)
+//     - User Profile (Sc)
+//          - Social Profile (Sc)
+//              - Description (At)
+//          - Game Profile (Sc)
+//              - Player Stats (At)
+//          - Settings (Sc)
+
 model User {
   // default attributes
   userid String @default(uuid()) @id
