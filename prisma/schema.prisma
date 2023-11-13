@@ -151,15 +151,18 @@ model Task {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // task specific attributes
+  // productivity object attributes
   name String
   description String?
+  start_date DateTime? // when did you start the task
+  due_date DateTime? // when is the task due
+  completed_date DateTime? // when was the task completed
+  status TaskStatus? @default(TODO)// what is the status of the task
+
+  // specialized task attributes
   time_estimate Int? // in minutes
   difficulty_estimate Int? // from 1 - 5
   priority Int? // from 1 - 5
-  due_date DateTime? // when is the task due
-  completedAt DateTime? // when was the task completed
-  status TaskStatus? @default(TODO)// what is the status of the task
 
   // relationships
   user User @relation(fields: [userid], references: [userid])
@@ -173,21 +176,39 @@ model Habit {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // habit specific attributes
+  // productivity object attributes
   name String
   description String?
-  frequency Int // defined by the number of days where this habit cycles
-  streak Int // how many days in a row have you completed this habit
-  startDate DateTime? // when did you start this habit
-  completedAt DateTime? // when was the habit completed
+  start_date DateTime? // when did you start this habit
+  completed_date DateTime? // when was the habit completed
+  due_date DateTime? // when is the habit due
   status TaskStatus? @default(TODO)// what is the status of the habit
   
   // specialized habit attributes
-  frequncy_time Int // how much time you will spend per iteration of the habit
+  streak Int // how many freqencies in a row have you completed this habit
+  frequency Int // defined by the number of days where this habit cycles
+  frequency_time Int // how much time you will spend per iteration of the habit
+  // how to track when habits are completed and when they are not, like a log???
 
   // relationships
   user User @relation(fields: [userid], references: [userid])
   userid String
+}
+
+model WorkSession {
+  // default work session attributes
+  worksessionid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Analytics Objects
+model HabitLog {
+  // default habit log attributes
+  habitlogid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
 
 // =======================
