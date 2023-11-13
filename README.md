@@ -39,7 +39,7 @@ Ophelus Model Productivity Object
 - goals: a very abstract type of productivity object that represents interest or vision that is broken down into smaller projects (each goal will be set as long term projects) goals will be based on a skill tree (work in progress)  
 - challenge: a type of productivity object that is time sensitive and temporary with 1 or more people (this type of object will have deadlines and milestones defined by the system)  
 
-# notes on previous vigama projects for tracking purposes
+# Previous Iterations of Vigama (for reference)
 vigama-buildspace: literally a create-react-app with task and tasklist  
 vigama-v1: a next.js project with a timer, and some backend models and configs (small) (the ONLY potential project to fork based, but even then i can just create a new one)  
 vigama-v2: literally just a next.js template  
