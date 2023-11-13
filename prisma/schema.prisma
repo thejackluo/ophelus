@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Prisma Schema File for Ophelus
+// Reference: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -11,30 +11,29 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-// - Gamification
-//     - World Schema (world data)
-//         - Location
-//         - Chucks
-//             - Tile
-//                 - ID for unique tiles
-//                 - Resource tile schema
-//                 - Building tile schema
-//     - Zombie
-//         - Location
-//         - Stats
-//             - Attack
-//             - Health
-//             - Movement Speed
-//     - Game Profile
-//         - Player Stats
-//         - Settings
-// - Productivity
-//     - Tasks
-//     - Habits
-//     - Work Sessions
-// - Social
-//     - Leaderboard
-//     - Social Profile
+// =======================
+// Schema Structure
+// =======================
+
+// - Gamification (Cat)
+//     - World (Sc)
+//         - Chucks (Sc)
+//             - Tile (Sc)
+//                 - Resource tile (Sc)
+//                 - Building tile (Sc)
+//     - Zombie (Sc)
+// - Productivity (Cat)
+//     - Tasks (Sc)
+//     - Habits (Sc)
+//     - Work Sessions (Sc)
+// - Social (Cat)
+//     - Leaderboard (Sc)
+//     - User Profile (Sc)
+//          - Social Profile (Sc)
+//              - Description (At)
+//          - Game Profile (Sc)
+//              - Player Stats (At)
+//          - Settings (Sc)
 
 model User {
   userid String @default(uuid()) @id
