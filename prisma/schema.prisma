@@ -42,8 +42,8 @@ datasource db {
 // World Definition
 model World {
   // default world attributes
-  worldid String @default(uuid()) @id
-  name String
+  id String @default(uuid()) @id // there will be a lot of worlds as the user scales
+  name String // the name of the worlds
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // one to one relationship between world and user model using userid and worldid as connectors
@@ -56,35 +56,62 @@ model World {
 
 model Chuck {
   // default chuck attributes
-  chuckid String @default(uuid()) @id
-  name String?
+  chuckid Int @default(autoincrement()) @id  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // Chuck specific attributes
   chuckX Int
   chuckY Int
+  @@unique([worldid, chuckX, chuckY])
   // one to many relationship between chuck and tile model using chuckid as connector
   tiles Tile[]
   // one to many relationship between chuck and world model using worldid as connector
-  world World @relation(fields: [worldid], references: [worldid])
+  world World @relation(fields: [worldid], references: [id])
   worldid String
+  // archived attributes
+  // name String? // maybe for projects  
 }
 
 
 // Tile Definition
 model Tile {
   // default tile attributes
-  tileid String @default(uuid()) @id
-  name String
-  createdAt DateTime @default(now()) // is this important?
-  updatedAt DateTime @updatedAt // is this important?
-  // one to many relationship between tile and chuck model using chuckid as connector
+  chuckid Int
+  @@id([tileX, tileY, chuckid])
+  // tile specific attributes
+  tileX Int
+  tileY Int
+  // relationships
   chuck Chuck @relation(fields: [chuckid], references: [chuckid])
-  chuckid String
-  // // one to many relationship between tile and resourceTile model using tileid as connector
-  // resourceTile ResourceTile[]
-  // // one to many relationship between tile and buildingTile model using tileid as connector
-  // buildingTile BuildingTile[]
+
+  resourceTile ResourceTile
+  buildingTile BuildingTile?
+  
+}
+
+model ResourceTile {
+  // default resource tile attributes
+  tileX Int
+  tileY Int
+  chuckid Int
+  @@id([tileX, tileY, chuckid])
+  // resource tile specific attributes
+  resourceType ResourceType
+  // relationships
+  tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
+}
+
+model BuildingTile {
+  // default building tile attributes
+  tileX Int
+  tileY Int
+  chuckid Int
+  @@id([tileX, tileY, chuckid])
+  // building tile specific attributes
+  buildingType BuildingType
+  // relationships
+  tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
+
 }
 
 enum ResourceType {
@@ -112,12 +139,16 @@ enum BuildingType {
 // Social
 // =======================
 model User {
+  // default attributes
   userid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // basic information
   firstName String
   lastName String
   username String @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  
   // create a one to one relationship between user and world model using userid and worldid as connectors
   world World?
 }
