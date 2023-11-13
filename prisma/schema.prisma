@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
@@ -30,13 +30,13 @@ datasource db {
 // World Definition
 model World {
   // default world attributes
-  id String @default(uuid()) @id // there will be a lot of worlds as the user scales
-  name String // the name of the worlds
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String    @id @default(uuid()) // there will be a lot of worlds as the user scales
+  name       String // the name of the worlds
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   // one to one relationship between world and user model using userid and worldid as connectors
-  ownedUser UserGame? @relation(fields: [usergameid], references: [usergameid])
-  usergameid String? @unique
+  ownedUser  UserGame? @relation(fields: [usergameid], references: [usergameid])
+  usergameid String?   @unique
 
   // one to many relationship between world and chuck model using worldid as connector
   chucks Chuck[]
@@ -44,68 +44,70 @@ model World {
 
 model Chuck {
   // default chuck attributes
-  chuckid String @default(uuid()) @id
+  chuckid   String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // Chuck specific attributes
-  chuckX Int
-  chuckY Int
-  @@unique([worldid, chuckX, chuckY])
+  chuckX    Int
+  chuckY    Int
   // one to many relationship between chuck and tile model using chuckid as connector
-  tiles Tile[]
+  tiles     Tile[]
   // one to many relationship between chuck and world model using worldid as connector
-  world World @relation(fields: [worldid], references: [id])
-  worldid String
+  world     World    @relation(fields: [worldid], references: [id])
+  worldid   String
   // archived attributes
   // name String? // maybe for projects  
-}
 
+  @@unique([worldid, chuckX, chuckY])
+}
 
 // Tile Definition
 model Tile {
   // default tile attributes
   chuckid String
-  @@id([tileX, tileY, chuckid])
   // tile specific attributes
-  tileX Int
-  tileY Int
+  tileX   Int
+  tileY   Int
   // relationships
-  chuck Chuck @relation(fields: [chuckid], references: [chuckid])
+  chuck   Chuck  @relation(fields: [chuckid], references: [chuckid])
 
   resourceTile ResourceTile?
   buildingTile BuildingTile?
-  
+
+  @@id([tileX, tileY, chuckid])
 }
 
 model ResourceTile {
   // default resource tile attributes
-  tileX Int
-  tileY Int
-  chuckid String
-  @@id([tileX, tileY, chuckid])
+  tileX            Int
+  tileY            Int
+  chuckid          String
   // resource tile specific attributes
-  resourceType ResourceType
-  count Int
-  health Int
+  resourceType     ResourceType
+  count            Int
+  health           Int
   production_speed Int // how fast the resource tile produces resources, updates every minute from the server for smooth app experience
   // relationships
-  tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
+  tile             Tile         @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
+
+  @@id([tileX, tileY, chuckid])
 }
 
 model BuildingTile {
   // default building tile attributes
-  tileX Int
-  tileY Int
-  chuckid String
-  @@id([tileX, tileY, chuckid])
+  tileX          Int
+  tileY          Int
+  chuckid        String
   // building tile specific attributes
-  buildingType BuildingType
-  health Int
-  defense Int
-  level Int
+  buildingType   BuildingType
+  health         Int
+  defense        Int
+  level          Int
   resource_count Int? // how many resources are stored in the buildingW
   // relationships
-  tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
+  tile           Tile         @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
+
+  @@id([tileX, tileY, chuckid])
 }
 
 enum ResourceType {
@@ -148,46 +150,46 @@ enum TaskStatus {
 
 model Task {
   // default task attributes
-  taskid String @default(uuid()) @id
+  taskid    String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // productivity object attributes
-  name String
-  description String?
-  start_date DateTime? // when did you start the task
-  due_date DateTime? // when is the task due
+  name           String
+  description    String?
+  start_date     DateTime? // when did you start the task
+  due_date       DateTime? // when is the task due
   completed_date DateTime? // when was the task completed
-  status TaskStatus? @default(TODO)// what is the status of the task
+  status         TaskStatus? @default(TODO) // what is the status of the task
 
   // specialized task attributes
-  time_estimate Int? // in minutes
+  time_estimate       Int? // in minutes
   difficulty_estimate Int? // from 1 - 5
-  priority Int? // from 1 - 5
+  priority            Int? // from 1 - 5
 
   // relationships
-  user UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
+  user               UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
   userproductivityid String
 }
 
 // Habit Definition
 model Habit {
   // default habit attributes
-  habitid String @default(uuid()) @id
+  habitid   String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // productivity object attributes
-  name String
-  description String?
-  start_date DateTime? // when did you start this habit
+  name           String
+  description    String?
+  start_date     DateTime? // when did you start this habit
   completed_date DateTime? // when was the habit completed
-  due_date DateTime? // when is the habit due
-  status TaskStatus? @default(TODO)// what is the status of the habit
-  
+  due_date       DateTime? // when is the habit due
+  status         TaskStatus? @default(TODO) // what is the status of the habit
+
   // specialized habit attributes
-  streak Int // how many freqencies in a row have you completed this habit
-  frequency Int // defined by the number of days where this habit cycles
+  streak         Int // how many freqencies in a row have you completed this habit
+  frequency      Int // defined by the number of days where this habit cycles
   frequency_time Int // how much time you will spend per iteration of the habit
   // how to track when habits are completed and when they are not, like a log???
 
@@ -195,28 +197,28 @@ model Habit {
   // habitlog HabitLog
 
   // relationships
-  user UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
+  user               UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
   userproductivityid String
 }
 
 model WorkSession {
   // default work session attributes
-  worksessionid String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  worksessionid String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // productivity object attributes
-  name String
-  description String?
-  start_date DateTime? // when did you start this work session
+  name           String
+  description    String?
+  start_date     DateTime? // when did you start this work session
   completed_date DateTime? // when was the work session completed
 
   // work session attributes
   session_duration Int // how long the work session was in minutes
-  session_type String // what type of work session was it
+  session_type     String // what type of work session was it
 
   // relationships
-  user UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
+  user               UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
   userproductivityid String
 }
 
@@ -225,9 +227,9 @@ model WorkSession {
 
 model HabitLog {
   // default habit log attributes
-  habitlogid String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  habitlogid String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   // relationships
   // habit Habit @relation(fields: [habitid], references: [habitid])
@@ -256,88 +258,88 @@ model HabitLog {
 
 model User {
   // default attributes
-  userid String @default(uuid()) @id
+  userid    String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   // relationships
-  social UserSocial @relation(fields: [usersocialid], references: [usersocialid], map: "UserSocial_User")
-  productivity UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid], map: "UserProductivity_User")
-  game UserGame @relation(fields: [usergameid], references: [usergameid], map: "UserGame_User")
-  setting UserSetting @relation(fields: [usersettingid], references: [usersettingid], map: "UserSetting_User")
-  usersocialid String @unique
-  userproductivityid String @unique
-  usergameid String @unique
-  usersettingid String @unique
+  social             UserSocial       @relation(fields: [usersocialid], references: [usersocialid], map: "UserSocial_User")
+  productivity       UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid], map: "UserProductivity_User")
+  game               UserGame         @relation(fields: [usergameid], references: [usergameid], map: "UserGame_User")
+  setting            UserSetting      @relation(fields: [usersettingid], references: [usersettingid], map: "UserSetting_User")
+  usersocialid       String           @unique
+  userproductivityid String           @unique
+  usergameid         String           @unique
+  usersettingid      String           @unique
 
   // user attributes
-  email String @unique
+  email    String @unique
   password String
   username String @unique
 }
 
 model UserSocial {
   // default attributes
-  usersocialid String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  usersocialid String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // basic information
   firstName String
-  lastName String
+  lastName  String
 
   // social information
-  bio String?
+  bio            String?
   profilePicture String?
 
   // social media links
-  twitter String?
+  twitter   String?
   instagram String?
-  facebook String?
-  linkedin String?
-  github String?
+  facebook  String?
+  linkedin  String?
+  github    String?
 
   // relationships
-  user User?
+  user   User?
   userid String
 }
 
 model UserGame {
   // default attributes
-  usergameid String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  usergameid String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   // relationships
-  world World[]
-  user User?
+  world  World[]
+  user   User?
   userid String
 }
 
 model UserProductivity {
   // default attributes
-  userproductivityid String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  userproductivityid String   @id @default(uuid())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   // productivity
-  tasks Task[]
-  habits Habit[]
+  tasks        Task[]
+  habits       Habit[]
   workSessions WorkSession[]
 
   // relationships
-  user User?
+  user   User?
   userid String
 }
 
 model UserSetting {
   // default attributes
-  usersettingid String @default(uuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  usersettingid String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // relationships
-  user User?
+  user   User?
   userid String
   // settings
   // theme
@@ -354,9 +356,9 @@ model UserSetting {
 //   // leaderboard attributes
 //   name String
 //   description String?
-  
+
 //   // relationships
 //   users User[]
-  
+
 //   // leaderboard entries
 // }
