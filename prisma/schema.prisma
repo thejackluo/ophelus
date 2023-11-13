@@ -35,8 +35,8 @@ model World {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // one to one relationship between world and user model using userid and worldid as connectors
-  ownedUser User? @relation(fields: [ownedUserid], references: [userid])
-  ownedUserid String? @unique
+  ownedUser UserGame? @relation(fields: [usergameid], references: [usergameid])
+  usergameid String? @unique
 
   // one to many relationship between world and chuck model using worldid as connector
   chucks Chuck[]
@@ -101,6 +101,7 @@ model BuildingTile {
   // building tile specific attributes
   buildingType BuildingType
   health Int
+  defense Int
   level Int
   resource_count Int? // how many resources are stored in the buildingW
   // relationships
@@ -165,8 +166,8 @@ model Task {
   priority Int? // from 1 - 5
 
   // relationships
-  user User @relation(fields: [userid], references: [userid])
-  userid String
+  user UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
+  userproductivityid String
 }
 
 // Habit Definition
@@ -194,8 +195,8 @@ model Habit {
   // habitlog HabitLog
 
   // relationships
-  user User @relation(fields: [userid], references: [userid])
-  userid String
+  user UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
+  userproductivityid String
 }
 
 model WorkSession {
@@ -215,8 +216,8 @@ model WorkSession {
   session_type String // what type of work session was it
 
   // relationships
-  user User @relation(fields: [userid], references: [userid])
-  userid String  
+  user UserProductivity @relation(fields: [userproductivityid], references: [userproductivityid])
+  userproductivityid String
 }
 
 // (WIP) Analytics Objects
@@ -245,7 +246,6 @@ model HabitLog {
 // =======================
 
 // - Social (Cat)
-//     
 //     - User Profile (Sc)
 //          - Social Profile (Sc)
 //              - Description (At)
@@ -260,21 +260,81 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
+  // relationships
+  social UserSocial
+  productivity UserProductivity
+  game UserGame
+  setting UserSetting
+
+  // user attributes
+  email String @unique
+  password String
+  username String @unique
+}
+
+model UserSocial {
+  // default attributes
+  usersocialid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // basic information
   firstName String
   lastName String
-  username String @unique
-  
-  // relationships
-  // one to many relationship with leaderboard
 
-  // one to many relationship with world
+  // social information
+  bio String?
+  profilePicture String?
+
+  // social media links
+  twitter String?
+  instagram String?
+  facebook String?
+  linkedin String?
+  github String?
+
+  // relationships
+  user User @relation(fields: [userid], references: [userid])
+  userid String
+}
+
+model UserGame {
+  // default attributes
+  usergameid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relationships
   world World[]
+  user User @relation(fields: [userid], references: [userid])
+  userid String
+}
+
+model UserProductivity {
+  // default attributes
+  userproductivityid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // productivity
   tasks Task[]
   habits Habit[]
   workSessions WorkSession[]
+
+  // relationships
+  user User @relation(fields: [userid], references: [userid])
+  userid String
+}
+
+model UserSetting {
+  // default attributes
+  usersettingid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // settings
+  // theme
+  // notifications
+  // etc
 }
 
 // model Leaderboard {
