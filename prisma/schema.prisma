@@ -139,7 +139,56 @@ enum BuildingType {
 //     - Work Sessions (Sc)
 
 // Task Definition
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  COMPLETE
+}
 
+model Task {
+  // default task attributes
+  taskid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // task specific attributes
+  name String
+  description String?
+  time_estimate Int? // in minutes
+  difficulty_estimate Int? // from 1 - 5
+  priority Int? // from 1 - 5
+  due_date DateTime? // when is the task due
+  completedAt DateTime? // when was the task completed
+  status TaskStatus? @default(TODO)// what is the status of the task
+
+  // relationships
+  user User @relation(fields: [userid], references: [userid])
+  userid String
+}
+
+// Habit Definition
+model Habit {
+  // default habit attributes
+  habitid String @default(uuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // habit specific attributes
+  name String
+  description String?
+  frequency Int // defined by the number of days where this habit cycles
+  streak Int // how many days in a row have you completed this habit
+  startDate DateTime? // when did you start this habit
+  completedAt DateTime? // when was the habit completed
+  status TaskStatus? @default(TODO)// what is the status of the habit
+  
+  // specialized habit attributes
+  frequncy_time Int // how much time you will spend per iteration of the habit
+
+  // relationships
+  user User @relation(fields: [userid], references: [userid])
+  userid String
+}
 
 // =======================
 // Social
@@ -165,6 +214,12 @@ model User {
   lastName String
   username String @unique
   
-  // create a one to one relationship between user and world model using userid and worldid as connectors
+  // relationships
+  // gamification
   world World?
+
+  // productivity
+  tasks Task[]
+  habits Habit[]
+  workSessions WorkSession[]
 }
