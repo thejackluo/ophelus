@@ -1,5 +1,5 @@
 # Ophelus
-A powerful AI-based gamification productivity app that uses result oriented tracking and dynamic adapation to fight for your dreams and discovery your best self
+A powerful AI-based gamification productivity app that uses result oriented tracking and dynamic adapation to fight for your dreams and discover your best self
 
 # Frameworks used
 
