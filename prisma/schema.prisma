@@ -191,7 +191,7 @@ model Habit {
   // how to track when habits are completed and when they are not, like a log???
 
   // analytics (WIP)
-  // habitlog HabitLog?
+  // habitlog HabitLog
 
   // relationships
   user User @relation(fields: [userid], references: [userid])
@@ -220,6 +220,8 @@ model WorkSession {
 }
 
 // (WIP) Analytics Objects
+// model log {}
+
 model HabitLog {
   // default habit log attributes
   habitlogid String @default(uuid()) @id
@@ -227,11 +229,14 @@ model HabitLog {
   updatedAt DateTime @updatedAt
 
   // relationships
-  // habit Habit? @relation(fields: [habitid], references: [habitid])
+  // habit Habit @relation(fields: [habitid], references: [habitid])
   // habitid String
 
   // habit log attributes
 }
+
+// model TaskLog {}
+// model WorkSessionLog {}
 
 // (WIP) Gamification Link to Productivity Objects
 
@@ -240,13 +245,14 @@ model HabitLog {
 // =======================
 
 // - Social (Cat)
-//     - Leaderboard (Sc)
+//     
 //     - User Profile (Sc)
 //          - Social Profile (Sc)
 //              - Description (At)
 //          - Game Profile (Sc)
 //              - Player Stats (At)
 //          - Settings (Sc)
+//     - Leaderboard (Sc) (Future)
 
 model User {
   // default attributes
@@ -260,11 +266,29 @@ model User {
   username String @unique
   
   // relationships
-  // gamification
-  world World?
+  // one to many relationship with leaderboard
+
+  // one to many relationship with world
+  world World[]
 
   // productivity
   tasks Task[]
   habits Habit[]
   workSessions WorkSession[]
 }
+
+// model Leaderboard {
+//   // default leaderboard attributes
+//   leaderboardid String @default(uuid()) @id
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   // leaderboard attributes
+//   name String
+//   description String?
+  
+//   // relationships
+//   users User[]
+  
+//   // leaderboard entries
+// }
