@@ -23,12 +23,12 @@ Payment: Stripe (0%)
 AI: OpenAI (10%)  
 
 # DevOp Tools
-Writing: jasper.ai
-UI Design: Diagram
-Coding: Copilot
-Documentation: Mintlify
-Unit Testing: To be determined
-Error Management: Sentry
+Writing: jasper.ai  
+UI Design: Diagram  
+Coding: Copilot  
+Documentation: Mintlify  
+Unit Testing: To be determined  
+Error Management: Sentry  
 
 # Ophelus Productivity Model
 Ophelus Model Productivity Object  
