@@ -35,17 +35,11 @@ datasource db {
 //              - Player Stats (At)
 //          - Settings (Sc)
 
-model User {
-  userid String @default(uuid()) @id
-  firstName String
-  lastName String
-  username String @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  // create a one to one relationship between user and world model using userid and worldid as connectors
-  world World?
-}
+// =======================
+// Gamification
+// =======================
 
+// World Definition
 model World {
   // default world attributes
   worldid String @default(uuid()) @id
@@ -76,6 +70,8 @@ model Chuck {
   worldid String
 }
 
+
+// Tile Definition
 model Tile {
   // default tile attributes
   tileid String @default(uuid()) @id
@@ -106,4 +102,22 @@ enum BuildingType {
   TREESTORAGE
   WALL
   DOOR
+}
+
+// =======================
+// Productivity
+// =======================
+
+// =======================
+// Social
+// =======================
+model User {
+  userid String @default(uuid()) @id
+  firstName String
+  lastName String
+  username String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // create a one to one relationship between user and world model using userid and worldid as connectors
+  world World?
 }
