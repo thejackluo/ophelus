@@ -85,6 +85,9 @@ model ResourceTile {
   @@id([tileX, tileY, chuckid])
   // resource tile specific attributes
   resourceType ResourceType
+  count Int
+  health Int
+  production_speed Int // how fast the resource tile produces resources, updates every minute from the server for smooth app experience
   // relationships
   tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
 }
@@ -97,6 +100,9 @@ model BuildingTile {
   @@id([tileX, tileY, chuckid])
   // building tile specific attributes
   buildingType BuildingType
+  health Int
+  level Int
+  resource_count Int? // how many resources are stored in the buildingW
   // relationships
   tile Tile @relation(fields: [tileX, tileY, chuckid], references: [tileX, tileY, chuckid])
 }
@@ -106,16 +112,21 @@ enum ResourceType {
   WOOD
   GOLD
   MOUNTAIN
+  ZOMBIE_HIVE
 }
 
 enum BuildingType {
   BASE
-  GOLDMINE
-  TREEMINE
-  GOLDSTORAGE
-  TREESTORAGE
   WALL
   DOOR
+  MARKET
+  CONNECTOR
+  GOLD_MINE
+  GOLD_BOOSTER
+  GOLD_STORAGE
+  TREE_MINE
+  TREE_BOOSTER
+  TREE_STORAGE
 }
 
 // =======================
@@ -128,6 +139,7 @@ enum BuildingType {
 //     - Work Sessions (Sc)
 
 // Task Definition
+
 
 // =======================
 // Social
