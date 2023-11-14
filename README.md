@@ -10,13 +10,13 @@ UI Library: ShdeCN (0%)
 UI Tool: Gimli (0%)  
 
 ## Backend
-Framework: BaSS (TBD)
+Framework: BaSS (TBD) (most likely not needed)
 File Hosting: AWS S3 (5%)  
-ORM Database: Prsima (0%)  
+ORM Database: Prsima (0%)  --> (potentially migrating to pure SQL if performance is needed)
 Authentication: Next-Auth (Integrated with Next.js) (0%)  
-API Layer: TPRC (Express variant) (0%)  
+API Layer: TPRC (Express variant) (0%) --> potential migration to express server
 Database: PostgresSQL (20%)  
-Hosting: Vercel (5%)  
+Hosting: Vercel (5%) --> migrate to vps or aws when scaling  
 
 ## App Specific (Update in the future
 Payment: Stripe (0%)  
