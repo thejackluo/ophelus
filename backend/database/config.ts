@@ -4,3 +4,5 @@ const WOOD = {
   INIT_HP: 1000,
   INIT_RES_COUNT: 15,
 };
+
+
