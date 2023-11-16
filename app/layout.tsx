@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Ophelus",
   description:
-    "An app that gamifies your life and pushes you to do your best with generative AI",
+    "A powerful AI-based gamification productivity app that uses result oriented tracking and dynamic adapation to fight for your dreams and discover your best self",
 };
 
 export default function RootLayout({
