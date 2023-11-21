@@ -1,20 +1,30 @@
 import { Young_Serif } from "next/font/google";
-import { exo } from "@/app/ui/fonts";
+import { exo } from "@/app/lib/fonts";
 import Image from "next/image";
 import Link from "next/link";
+
+// create a variable user that is a string
+const user = "Jack";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="bg-red-100">
-        <h1>Hello everyone, welcome to Ophelus</h1>
-        <Link className="text-blue-500" href="game">
-          Press here
+      {/* Hello World */}
+      <h1>Ophelus</h1>
+      {/* Nav Bar */}
+      <nav>
+        <Link className="text-blue-500 mx-2" href="game">
+          {user}&apos;s world
         </Link>
-        {/* triangle */}
-        {/* <div className="h-0 w-0 border-b-[30px] border-l-[20px] border-r-[20px] border-b-black border-l-transparent border-r-transparent" /> */}
-      </div>
-      <div>
+        <Link className="text-blue-500 mx-2" href="productivity">
+          {user}&apos;s work
+        </Link>
+        <Link className="text-blue-500 mx-2" href="social">
+          {user}&apos;s social
+        </Link>
+      </nav>
+      {/* Landing Page */}
+      <main>
         <Image
           src="/city.webp"
           width={1000}
@@ -22,10 +32,15 @@ export default function Home() {
           alt="A cyberpunk city"
         />
         <h1 className={`${exo.className} antialiased`}>
-          Here is a beautiful city generated using dalle 3, this font should
-          also be futuristic
+          Ophelus is a work in progress, but I believe that this project will
+          yield to something significant.
         </h1>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer>
+        <h1>Footer</h1>
+      </footer>
     </main>
   );
 }
