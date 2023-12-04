@@ -6,29 +6,31 @@ A powerful AI-based gamification productivity app that uses result oriented trac
 ## Frontend Structure
 Framework: next.js Extended frontend (10%)  
 UI Framework: tailwind.css (30%)  
-UI Library: ShdeCN (0%)  
-UI Tool: Gimli (0%)  
 
 ## Backend
-Framework: BaSS (TBD) (most likely not needed)
 File Hosting: AWS S3 (5%)  
-ORM Database: Prsima (0%)  --> (potentially migrating to pure SQL if performance is needed)
+ORM Database: Prisma (0%)  --> (potentially migrating to pure SQL if performance is needed)
 Authentication: Next-Auth (Integrated with Next.js) (0%)  
 API Layer: TPRC (Express variant) (0%) --> potential migration to express server
 Database: PostgresSQL (20%)  
 Hosting: Vercel (5%) --> migrate to vps or aws when scaling  
 
-## App Specific (Update in the future
+## App Specific (Update in the future)
 Payment: Stripe (0%)  
 AI: OpenAI (10%)  
 
-# DevOp Tools
+## DevOp Tools
 Writing: jasper.ai  
 UI Design: Diagram  
 Coding: Copilot  
 Documentation: Mintlify  
 Unit Testing: To be determined  
 Error Management: Sentry  
+
+## Inactive Tools  
+UI Library: ShdeCN (0%)  
+UI Tool: Gimli (0%)  
+Framework: BaSS (TBD) (most likely not needed)
 
 # Ophelus Productivity Model
 Ophelus Model Productivity Object  
